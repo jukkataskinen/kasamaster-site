@@ -1183,38 +1183,35 @@ function generateQuote() {
 
   quoteText = txt;
 
-  // Send to customer
-  const subjCustomer = encodeURIComponent('Kasamaster-tarjous — ' + company);
-  const bodyCustomer = encodeURIComponent(txt);
-
-  // Send copy to Jukka
-  const subjCopy = encodeURIComponent('Asiakkaalle lähetetty tarjous - ' + company);
-  const bodyCopy = encodeURIComponent('Asiakkaalle ' + company + ' lähetetty tarjous:\n\n' + txt);
-
-  // Open customer email
-  const a1 = document.createElement('a');
-  a1.href = 'mailto:' + email + '?subject=' + subjCustomer + '&body=' + bodyCustomer;
-  a1.style.display = 'none';
-  document.body.appendChild(a1);
-  a1.click();
-  document.body.removeChild(a1);
-
-  // Open copy to Jukka after short delay
-  setTimeout(() => {
-    const a2 = document.createElement('a');
-    a2.href = 'mailto:jukka.taskinen@adepta.fi?subject=' + subjCopy + '&body=' + bodyCopy;
-    a2.style.display = 'none';
-    document.body.appendChild(a2);
-    a2.click();
-    document.body.removeChild(a2);
-  }, 1500);
-
-  // Show confirmation
+  // Send via API
   const btn = document.getElementById('quote-submit');
-  btn.textContent = '✓ TARJOUS LÄHETETTY!';
-  btn.style.background = '#22C55E';
-  btn.style.color = '#fff';
+  btn.textContent = 'LÄHETETÄÄN...';
   btn.disabled = true;
+
+  fetch('/api/send-quote', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ company, email, phone, slips, users })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      btn.textContent = '✓ TARJOUS LÄHETETTY!';
+      btn.style.background = '#22C55E';
+      btn.style.color = '#fff';
+    } else {
+      btn.textContent = 'VIRHE — yritä uudelleen';
+      btn.style.background = '#ef4444';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'VIRHE — yritä uudelleen';
+    btn.style.background = '#ef4444';
+    btn.style.color = '#fff';
+    btn.disabled = false;
+  });
 }
 
 function buildQuotePrintWindow() {
