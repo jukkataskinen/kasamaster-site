@@ -169,11 +169,7 @@ footer{ background:#0A0A0A; border-top:1px solid var(--border); padding:48px 24p
       <a href="#hinnat" class="btn-primary">ALOITA ILMAINEN KOKEILU</a>
       <a href="#ominaisuudet" class="btn-ghost">KATSO OMINAISUUDET ↓</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-n">730+</div><div class="stat-l">Asiakasta</div></div>
-      <div class="stat"><div class="stat-n">9</div><div class="stat-l">Tuotetyyppiä</div></div>
-      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Mobiili</div></div>
-    </div>
+
   </div>
 </section>
 
@@ -299,7 +295,7 @@ footer{ background:#0A0A0A; border-top:1px solid var(--border); padding:48px 24p
     <div>
       <div class="footer-col-title">Yhteystiedot</div>
       <ul class="footer-links">
-        <li><a href="mailto:info@kasamaster.fi">info@kasamaster.fi</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#731a1d151c33181200121e12000716015d151a"><span class="__cf_email__" data-cfemail="462f282029062d2735272b273532233468202f">[email&#160;protected]</span></a></li>
         <li><a href="https://kasamaster.fi">kasamaster.fi</a></li>
       </ul>
     </div>
@@ -310,7 +306,7 @@ footer{ background:#0A0A0A; border-top:1px solid var(--border); padding:48px 24p
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Reveal on scroll
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
@@ -349,16 +345,4 @@ async function sendQuote() {
       btn.textContent = '✓ TARJOUS LÄHETETTY!';
       btn.style.background = '#22C55E';
       btn.style.color = '#fff';
-    } else {
-      throw new Error(data.error);
     }
-  } catch(e) {
-    btn.textContent = 'VIRHE — yritä uudelleen';
-    btn.style.background = '#ef4444';
-    btn.style.color = '#fff';
-    btn.disabled = false;
-  }
-}
-</script>
-</body>
-</html>
