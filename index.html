@@ -1182,34 +1182,39 @@ function generateQuote() {
   txt += 'kasamaster.fi\n';
 
   quoteText = txt;
-  // Convert plain text to HTML for nice display
-  // Line-by-line render — no double spacing from display:block + <br>
-  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const lines = txt.split('\n');
-  let out = '';
-  for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    const t   = raw.trim();
-    if (!t) { out += '<div style="height:5px"></div>'; continue; }
-    if (/━+/.test(t))  { out += '<hr style="border:none;border-top:2px solid #FFC107;margin:5px 0 3px">'; continue; }
-    if (/─+/.test(t))  { out += '<hr style="border:none;border-top:1px solid #ccc;margin:2px 0">'; continue; }
-    const e = esc(t);
-    if (/^\d+\.\s+[A-ZÄÖÅ]/.test(t)) {
-      out += '<div style="font-weight:800;font-size:13px;color:#000;margin:8px 0 2px">' + e + '</div>';
-    } else if (/^(TARJOUS|LASKENNALLINEN|MIKSI|MITÄ|ALOITTAMINEN)/.test(t)) {
-      out += '<div style="font-weight:700;font-size:13px;color:#996600;margin:2px 0">' + e + '</div>';
-    } else if (/NETTOSÄÄSTÖ/.test(t)) {
-      out += '<div style="font-weight:700;font-size:14px;color:#2e7d32;margin:2px 0">' + e + '</div>';
-    } else if (/^[✓•]/.test(t) || raw.startsWith('  ✓') || raw.startsWith('  •')) {
-      const col = t.startsWith('✓') ? '#2e7d32' : '#222';
-      out += '<div style="color:' + col + ';padding-left:8px;margin:1px 0">' + e + '</div>';
-    } else {
-      out += '<div style="margin:1px 0">' + e + '</div>';
-    }
-  }
-  document.getElementById('quote-body').innerHTML = out;
-  document.getElementById('quote-result').style.display = 'block';
-  document.getElementById('quote-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Send to customer
+  const subjCustomer = encodeURIComponent('Kasamaster-tarjous — ' + company);
+  const bodyCustomer = encodeURIComponent(txt);
+
+  // Send copy to Jukka
+  const subjCopy = encodeURIComponent('Asiakkaalle lähetetty tarjous - ' + company);
+  const bodyCopy = encodeURIComponent('Asiakkaalle ' + company + ' lähetetty tarjous:\n\n' + txt);
+
+  // Open customer email
+  const a1 = document.createElement('a');
+  a1.href = 'mailto:' + email + '?subject=' + subjCustomer + '&body=' + bodyCustomer;
+  a1.style.display = 'none';
+  document.body.appendChild(a1);
+  a1.click();
+  document.body.removeChild(a1);
+
+  // Open copy to Jukka after short delay
+  setTimeout(() => {
+    const a2 = document.createElement('a');
+    a2.href = 'mailto:jukka.taskinen@adepta.fi?subject=' + subjCopy + '&body=' + bodyCopy;
+    a2.style.display = 'none';
+    document.body.appendChild(a2);
+    a2.click();
+    document.body.removeChild(a2);
+  }, 1500);
+
+  // Show confirmation
+  const btn = document.getElementById('quote-submit');
+  btn.textContent = '✓ TARJOUS LÄHETETTY!';
+  btn.style.background = '#22C55E';
+  btn.style.color = '#fff';
+  btn.disabled = true;
 }
 
 function buildQuotePrintWindow() {
