@@ -994,32 +994,6 @@ footer {
   </div>
 
   <!-- QUOTE RESULT — shown after form submit -->
-  <div id="quote-result" style="display:none;max-width:680px;margin:32px auto 0;padding:0 20px 60px;">
-    <div id="quote-card" style="background:var(--card);border:2px solid var(--y);border-radius:16px;overflow:hidden;">
-      <!-- header -->
-      <div style="background:#111;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--y)">KASAMASTER</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-top:2px;">Tarjous</div>
-        </div>
-        <div id="q-date" style="font-family:'Barlow',sans-serif;font-size:12px;color:#666;text-align:right;"></div>
-      </div>
-      <!-- body -->
-      <div id="quote-body" style="padding:28px 28px 24px;font-family:'Barlow',sans-serif;font-size:15px;line-height:1.7;color:var(--text);word-wrap:break-word;overflow-wrap:break-word;"></div>
-      <!-- send button -->
-      <div style="padding:0 28px 28px;display:flex;gap:12px;flex-wrap:wrap;">
-        <button onclick="downloadAndEmail()" style="flex:1;padding:14px;background:var(--y);border:none;border-radius:10px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:1px;cursor:pointer;">
-          📧 LÄHETÄ SÄHKÖPOSTILLA + PDF
-        </button>
-        <button onclick="printQuotePDF()" style="padding:14px 20px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;cursor:pointer;">
-          🖨️ PDF
-        </button>
-      </div>
-      <div id="quote-sent" style="display:none;margin:0 28px 28px;text-align:center;padding:14px;background:#4CAF5022;border:1px solid #4CAF50;border-radius:10px;color:#4CAF50;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;">
-        ✓ KIITOS! Otamme yhteyttä pian.
-      </div>
-    </div>
-  </div>
 </section>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2517,32 +2491,6 @@ footer {
   </div>
 
   <!-- QUOTE RESULT — shown after form submit -->
-  <div id="quote-result" style="display:none;max-width:680px;margin:32px auto 0;padding:0 20px 60px;">
-    <div id="quote-card" style="background:var(--card);border:2px solid var(--y);border-radius:16px;overflow:hidden;">
-      <!-- header -->
-      <div style="background:#111;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--y)">KASAMASTER</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-top:2px;">Tarjous</div>
-        </div>
-        <div id="q-date" style="font-family:'Barlow',sans-serif;font-size:12px;color:#666;text-align:right;"></div>
-      </div>
-      <!-- body -->
-      <div id="quote-body" style="padding:28px 28px 24px;font-family:'Barlow',sans-serif;font-size:15px;line-height:1.7;color:var(--text);word-wrap:break-word;overflow-wrap:break-word;"></div>
-      <!-- send button -->
-      <div style="padding:0 28px 28px;display:flex;gap:12px;flex-wrap:wrap;">
-        <button onclick="downloadAndEmail()" style="flex:1;padding:14px;background:var(--y);border:none;border-radius:10px;color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:1px;cursor:pointer;">
-          📧 LÄHETÄ SÄHKÖPOSTILLA + PDF
-        </button>
-        <button onclick="printQuotePDF()" style="padding:14px 20px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;cursor:pointer;">
-          🖨️ PDF
-        </button>
-      </div>
-      <div id="quote-sent" style="display:none;margin:0 28px 28px;text-align:center;padding:14px;background:#4CAF5022;border:1px solid #4CAF50;border-radius:10px;color:#4CAF50;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;">
-        ✓ KIITOS! Otamme yhteyttä pian.
-      </div>
-    </div>
-  </div>
 </section>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2713,9 +2661,7 @@ function generateQuote() {
       out += '<div style="margin:1px 0">' + e + '</div>';
     }
   }
-  document.getElementById('quote-body').innerHTML = out;
-  document.getElementById('quote-result').style.display = 'block';
-  document.getElementById('quote-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // quote sent via API - no preview shown
 }
 
 function buildQuotePrintWindow() {
