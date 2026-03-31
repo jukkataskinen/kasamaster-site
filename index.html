@@ -1034,8 +1034,24 @@ function generateQuote() {
   const slips   = parseInt(document.getElementById('q-slips').value) || 0;
   const users   = parseInt(document.getElementById('q-users').value) || 0;
 
+  // Validate email
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // Validate Finnish phone: +358 or 0, 6-12 digits, spaces/dashes ok
+  const phoneClean = phone.replace(/[\s\-]/g,'');
+  const phoneOk = /^(\+358|0)[0-9]{6,11}$/.test(phoneClean);
+
   if (!company || !phone || !email || !slips || !users) {
     alert('Täytä kaikki pakolliset kentät.');
+    return;
+  }
+  if (!emailOk) {
+    alert('Tarkista sähköpostiosoite — se ei näytä oikealta.');
+    document.getElementById('q-email').focus();
+    return;
+  }
+  if (!phoneOk) {
+    alert('Tarkista puhelinnumero — käytä suomalaista numeroa (esim. 040 123 4567 tai +358 40 123 4567).');
+    document.getElementById('q-phone').focus();
     return;
   }
 
